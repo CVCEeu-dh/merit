@@ -18,7 +18,7 @@ var MAXQDA_DOCNAME = 'Document name', // csv column header are language specific
     MAXQDA_CODE = 'Code',
     MAXQDA_PERTINENCE = 'Coverage %',
     MAXQDA_FILEPREFIX = 'loc_',
-    maxqda = './Coded segments2016-03-21NEW.csv',//maxqda_codings2015-09-23.csv',
+    maxqda = './Coded segments2016-03-21.csv',//maxqda_codings2015-09-23.csv',
     geoloc = './Buildings-Streets-Cities-Provinces-220115.csv';
 
 
@@ -271,7 +271,7 @@ async.waterfall([
             async.series(sentence.locations.map(function(location) {
               return function(_next) {
                 var address = location.place.indexOf(location.t) != -1? location.place: [location.t, location.place].join(', ');
-                // console.log(address);
+                console.log('   ', clc.blackBright(address));
                 helpers.cache.read({
                   namespace: 'services',
                   ref: 'geocoding:' + address
@@ -337,8 +337,8 @@ async.waterfall([
 
     //q.push(_.filter(options.folia, {name: 'Alice_en_Koos_Visser_uit_Kampen'}));
     // q.push(_.filter(options.folia, {name: 'VERHAAL_VAN_HORST_WEBER'}));
-    // q.push(options.folia)
-    q.push(_.filter(options.folia, {name: 'Interview_met_Dhr_Nijland'}));
+    q.push(options.folia)
+    // q.push(_.filter(options.folia, {name: 'Interview_met_Dhr_Nijland'}));
     // q.push(_.filter(options.folia, {name: 'Veldhuizen_fam._Brieven'}))
     // q.push(_.filter(options.folia, {name: 'aanvullingen_op_Verhaal_Theo_Verbaars'}))
     q.drain = function() {

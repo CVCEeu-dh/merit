@@ -81,17 +81,10 @@ async.waterfall([
             };
 
             if(sentence.matches.length > 0)
-              combinations = _(combinations)
-                .map(function(combination){
-                  
-                  return sentence.matches.map(function(match){
-                    var c = _.assign( {}, combination);
-                    c.code = match.code;
-                    return c;
-                  });
-                })
-                  .flatten()
-                  .value();
+              combinations = _.map(combinations, function(d){
+                d.code = _.map(sentence.matches, 'code').join('||');
+                return d
+              });
 
             return combinations;
           })
